@@ -40,8 +40,8 @@
                         </ul>
                     </div>
                     {% endif %}
-                    <p><b>Post at: </b>{{post.timestamp.strftime("%c")}}</p>
-                    <div class="body" style="background-color: rgb(241, 241, 241)"><p>{{ post.body }}</p></div>
+                    <br/>
+                    <div class="body" style="background-color: rgb(241, 241, 241); margin-top:20px;"><p>{{ post.body }}</p></div>
                     <a href="#comments" class="viewbutton">Comments: {{post.comments|length}}</a>
                     <div class="content">
                         <div style="margin-bottom: 10px;"></div>
@@ -76,7 +76,7 @@
                                         >: {{comment.content}}
                                     </div>
                                     <div>
-                                        <small class="text-muted"> {{comment.timestamp.strftime("%c")}}</small>
+                                        <small class="text-muted"> {{comment.timestamp.strftime('%F %T')}}</small>
                                         {% if user.id == comment.user_id or user.id == post.author_id %}
                                         <div class="btn-group">
                                         <button
@@ -103,6 +103,7 @@
                             </div>
                     </div>
                 </div>
+                <div class="card-footer text-muted">{{post.timestamp.strftime('%F %T')}}</div>
             </div>
         </li>
         {% endfor %}
