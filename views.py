@@ -160,6 +160,10 @@ def follow(user_id):
         db.session.commit()
     return redirect(url_for('views.profile', author_id = followed.id))
 
+@views.errorhandler(403)
+def page_not_found(e):
+    return render_template('403.html'), 403
+
 @views.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
