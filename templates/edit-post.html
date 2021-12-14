@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+    %}
+<br/>
+<h1 align="center">Edit now</h1>
+
+
+<form method="POST" style="background-color: rgb(121, 193, 252); border-radius: 6px;" enctype="multipart/form-data">
+    <div class="container-cus">
+      <br/>
+        <p style="color: white;font-size: 25px; margin-left: 2%;">Editing post:</p>
+        <textarea name="post" id="post" class="form-control" style="width: 96%; margin-left: 2%">{{post.body}}</textarea>
+        <br />
+        <input name="image" type="file" id ="file" style="display: none;" value="{{post.img}}">
+        <div>
+            <button type="submit" class="btn btn-primary" style="margin-left: 44%; margin-bottom: 2%">Confirm Update</button>
+        </div>
+    </div>
+</form>
+<br />
+
+<div align="center">
+  <a href="/"
+    ><button type="button" class="btn btn-lg btn-secondary" >Back</button></a
+  >
+</div>
+
+{% endblock %}

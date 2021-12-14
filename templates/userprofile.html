@@ -1,0 +1,101 @@
+
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+    %}
+    <h1 align="center">{{Blogger.username}}'s Profile</h1>
+    <div class="container-fluid" style="background-color: rgb(255, 255, 255); box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 10px;">
+        <div class="row" style="padding-top: 2%;"></div>
+        <div class="row-1">
+            <div class="col-sm">
+                <div class="row">
+                    <div class="col-2">
+                        <p><b>Username:</b></p>
+                        <p><b>Email:</b></p>
+                        <p><a href="/posts/{{Blogger.id}}" class = "link-dark"><b>Posts: </b></a></p>
+                    </div>
+                    <div class="col-6">
+                        <p>{{Blogger.username}}</p>
+                        <p>{{Blogger.email}}</p>
+                        <span class="badge badge-primary badge-pill">{{Blogger.posts|length}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm" style="padding-left: 0px;">
+                <ul class="list-group list-group-flush" style="margin-right: 78.25%;">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="#tb-1" class = "link-dark"><b>Follower: </b></a>
+                        <span class="badge badge-primary badge-pill">{{Blogger.followers|length}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="#tb-2" class = "link-dark"><b>Following: </b></a>
+                        <span class="badge badge-primary badge-pill">{{Blogger.followed|length}}</span>
+                    </li>
+                    {% if user.is_authenticated %}
+                        {% if user.id != Blogger.id %}
+                            {% if hasfollow %}
+                            <li class="list-group-item d-flex flex-row-reverse justify-content-between align-items-center">
+                                <a class="btn btn-danger" href="/follow_user/{{Blogger.id}}" role="button" >Unfollow</a>
+                            </li>
+                            {% else %}
+                            <li class="list-group-item d-flex flex-row-reverse justify-content-between align-items-center">
+                                <a class="btn btn-danger" href="/follow_user/{{Blogger.id}}" role="button" >Follow</a>
+                            </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="row" style="padding-top: 10px;"></div>
+    </div>
+    <div style="margin-top: 5%;"></div>
+    <h1 align="center">Followers</h1>
+    <table class="table table-white" id="tb-1">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">username</th>
+            <th scope="col">email</th>
+            <th scope="col">follower</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set i = namespace(value=1) %}
+          {% for follower in Blogger.followers %}
+            <tr>
+                <th scope="row">{{i.value}} </th>
+                <td><a href="/profile/{{follower.follower.id}}" class="link-dark">{{follower.follower.username}}</a></td>
+                <td>{{follower.follower.email}}</td>
+                <td>{{follower.follower.followers|length}}</td>
+            </tr>
+            {% set i.value = i.value + 1 %}
+          {% endfor %}
+        </tbody>
+    </table>
+    <h1 align="center">Following</h1>
+    <table class="table table-white" id="tb-2">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">username</th>
+            <th scope="col">email</th>
+            <th scope="col">follower</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set i = namespace(value=1) %}
+          {% for follower in Blogger.followed %}
+            <tr>
+                <th scope="row">{{i.value}} </th>
+                <td><a href="/profile/{{follower.followed.id}}" class="link-dark">{{follower.followed.username}}</a></td>
+                <td>{{follower.followed.email}}</td>
+                <td>{{follower.followed.followers|length}}</td>
+            </tr>
+            {% set i.value = i.value + 1 %}
+          {% endfor %}
+        </tbody>
+    </table>
+        
+    {% endblock %}
+    
+    {% block action %}
+{% endblock %}
