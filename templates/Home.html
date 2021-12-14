@@ -1,12 +1,14 @@
 
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
   %}
-  <h1 align="center">Social network</h1>
+  <h1 align="center" style="margin-top: 30px;">Social network</h1>
   {% if user.is_authenticated %}
+  <br/>
+  <h2 align="left" style="margin-left: 2%; margin-top: 30px;">Hello {{user.username}}, wellcome back!!</h2>
   <form method="POST" style="background-color: rgb(121, 193, 252); border-radius: 6px;width: auto;height: auto;" enctype="multipart/form-data">
     <div class="container-cus">
       <br/>
-      <p style="color: white; margin-left: 2%; font-size: 25px;">Hi {{user.username}}, What are you thinking now?</p>
+      <p style="color: white; margin-left: 2%; font-size: 25px;">What are you thinking now?</p>
       <textarea name="post" id="post" class="form-control" style="width: 96%; margin-left: 2%;"></textarea>
       <br />
       <input name="image" type="file" id ="file" style="display: none;">
@@ -15,6 +17,8 @@
       </div>
     </div>
   </form>
+  {% else %}
+    <h2 align="left" style="margin-left: 2%; margin-top: 30px;">Hello Stranger, join now?</h2>
   {% endif %}
   <ul class="list-group list-group-flush" id="notes">
     {% for post in posts %}
